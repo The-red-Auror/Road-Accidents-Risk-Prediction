@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Road Risk Predictor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+</head>
+<body>
+
+  <div class="container">
+    <h1>🚦 Road Risk Predictor</h1>
+    <p class="subtitle">Check accident risk for any location in Pune </p>
+
+    <div class="form">
+        <h3>Select Location on Map</h3>
+
+        <div id="map"></div>
+
+        <p style="text-align:center; margin:10px 0;">OR</p>
+
+      <input
+        type="number"
+        id="latitude"
+        placeholder="Latitude"
+        step="any"
+        oninput="updateMarkerFromInputs()"
+        />
+      <input
+        type="number"
+        id="longitude"
+        placeholder="Longitude"
+        step="any"
+        oninput="updateMarkerFromInputs()"
+        />
+
+      <select id="road_type">
+        <option value="">Select Road Type</option>
+        <option value="highway">Highway</option>
+        <option value="local">Local Road</option>
+      </select>
+
+      <input type="number" id="lanes" placeholder="Number of lanes" />
+      <input type="number" id="speed_limit" placeholder="Speed limit (km/h)" />
+
+      <button onclick="predictRisk()">Check Road Risk</button>
+    </div>
+
+    <div id="result" class="result hidden"></div>
+    <h3 style="margin-top:20px;">📍 Accident Hotspot Map (Based on Historical accident data)</h3>
+
+        <iframe
+        src="http://127.0.0.1:8000/static/hotspot_map.html"
+        width="100%"
+        height="350"
+        style="border:none; border-radius:10px;"
+        ></iframe>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
