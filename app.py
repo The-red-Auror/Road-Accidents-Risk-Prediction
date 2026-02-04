@@ -7,7 +7,7 @@ from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import logging
-
+import os
 from typing import List
 from pydantic import BaseModel
 
@@ -50,6 +50,7 @@ WEATHER_API_KEY = "84e3fcd88696df87425fc6d12909a713"
 app = FastAPI(title="Road Risk Prediction API")
 
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
+print("STATIC FILES:", os.listdir("frontend"))
 
 
 @app.get("/")
