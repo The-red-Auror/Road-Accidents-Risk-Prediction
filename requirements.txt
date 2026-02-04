@@ -10,5 +10,4 @@ python-multipart
 datetime
 logging
 typing
-pydantic 
-os
+pydantic
