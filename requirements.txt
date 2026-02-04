@@ -7,3 +7,7 @@ xgboost
 joblib
 requests
 python-multipart
+datetime
+logging
+typing
+pydantic 
