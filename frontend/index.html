@@ -8,6 +8,10 @@
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"
+  />
 
     <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
@@ -23,7 +27,13 @@
     <div class="form">
         <h3>Select Location on Map</h3>
 
+        <div id="routeStatus" class="route-status hidden"></div>
+
         <div id="map"></div>
+        <button id="resetBtn" class="reset-btn">
+          Reset Route Selection
+        </button>
+
 
         <p style="text-align:center; margin:10px 0;">OR</p>
 
@@ -66,6 +76,10 @@
 
   </div>
 
+  <!-- Routing engine -->
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <!-- Your script -->
   <script src="script.js"></script>
 </body>
 </html>

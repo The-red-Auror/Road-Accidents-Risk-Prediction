@@ -6,6 +6,26 @@ import requests
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import logging
+
+from typing import List
+from pydantic import BaseModel
+
+class RoutePoint(BaseModel):
+    lat: float
+    lon: float
+
+
+class RouteRequest(BaseModel):
+    route_points: List[RoutePoint]
+class RoutePoint(BaseModel):
+    lat: float
+    lon: float
+
+
+class RouteRequest(BaseModel):
+    route_points: List[RoutePoint]
+
 
 
 
@@ -107,4 +127,60 @@ def predict_risk(data: dict):
         "weather": weather,
         "time": f"{hour}:00",
         "date": f"{day}-{month}-{year}"
+    }
+
+
+# =====================
+# ROUTE RISK ENDPOINT
+# =====================
+
+class RoutePoint(BaseModel):
+    lat: float
+    lon: float
+
+class RouteRequest(BaseModel):
+    route_points: List[RoutePoint]
+
+
+@app.post("/route-risk")
+def route_risk(data: RouteRequest):
+    results = []
+
+    now = datetime.now()
+    hour = now.hour
+    day = now.day
+    month = now.month
+    day_of_week = now.weekday()
+    year = now.year
+
+    for point in data.route_points:
+        input_df = pd.DataFrame([{
+            "latitude": point.lat,
+            "longitude": point.lon,
+            "road_type": "local",      # temporary default
+            "lanes": 2,                # temporary default
+            "speed_limit": 40,         # temporary default
+            "weather": "Clear",        # temporary default
+            "year": year,
+            "month": month,
+            "day": day,
+            "day_of_week": day_of_week,
+            "hour": hour
+        }])
+
+        pred = model.predict(input_df)[0]
+        prob = model.predict_proba(input_df).max()
+
+        risk_map = {0: "Low", 1: "Medium", 2: "High"}
+
+        results.append({
+            "lat": point.lat,
+            "lon": point.lon,
+            "risk": risk_map[pred],
+            "confidence": round(float(prob), 2)
+        })
+
+    return {
+        "total_points": len(results),
+        "route_risk": results
     }

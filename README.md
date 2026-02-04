@@ -22,19 +22,13 @@ pip install -r requirements.txt
 python -m uvicorn app:app --reload
 
 Open:
-
 API Docs: http://127.0.0.1:8000/docs
-
 Frontend: open frontend/index.html
 
 ML Model
-
 Trained on Pune road accident data
-
 Features: location, road type, lanes, speed limit, weather, time
 
 DGs
-
 SDG 3: Good Health & Well-being
-
 SDG 11: Sustainable Cities & Communities
