@@ -137,7 +137,7 @@ async function predictRisk() {
   resultDiv.classList.remove("hidden");
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/predict", {
+    const response = await fetch("https://road-risk-backend.onrender.com/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -221,7 +221,7 @@ async function sendRouteForRisk() {
   };
 
 
-  const response = await fetch("http://127.0.0.1:8000/route-risk", {
+  const response = await fetch("https://road-risk-backend.onrender.com/route-risk", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
